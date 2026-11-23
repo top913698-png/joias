@@ -1,6 +1,10 @@
 # Se true, a joia some (1 unidade) a cada uso. Se false, é infinita.
 consumir-ao-usar: false
 
+# Recarga (em segundos) de cada joia, por jogador. 90 = 1 minuto e meio. 0 = sem recarga.
+# Para uma joia específica, adicione 'cooldown: <segundos>' dentro dela (ex.: em tita).
+cooldown-segundos: 90
+
 # duracao = segundos | nivel = nível do efeito (1 = I, 2 = II, ...)
 joias:
   resistencia:
