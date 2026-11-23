@@ -9,19 +9,19 @@ cooldown-segundos: 90
 joias:
   resistencia:
     duracao: 5
-    nivel: 2
+    nivel: 3
   forca:
     duracao: 5
-    nivel: 2
+    nivel: 3
   velocidade:
     duracao: 5
-    nivel: 2
+    nivel: 4
   regeneracao:
     duracao: 5
-    nivel: 2
+    nivel: 3
   vida:
     duracao: 5
-    nivel: 3
+    nivel: 4
   pulo:
     duracao: 5
     nivel: 5
