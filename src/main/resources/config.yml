@@ -14,7 +14,7 @@ joias:
     duracao: 5
     nivel: 3
   velocidade:
-    duracao: 5
+    duracao: 15
     nivel: 4
   regeneracao:
     duracao: 5
@@ -26,8 +26,8 @@ joias:
     duracao: 5
     nivel: 5
   tita:
-    duracao: 20
-    escala: 3.0       # tamanho do jogador (1.0 = normal)
+    duracao: 40
+    escala: 4.0       # tamanho do jogador (1.0 = normal)
     vida-extra: 20.0  # vida extra em pontos (20 = 10 corações = 1 barra extra)
   ladrao:
     duracao: 45
