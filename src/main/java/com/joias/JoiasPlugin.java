@@ -54,7 +54,7 @@ public final class JoiasPlugin extends JavaPlugin {
                         .decoration(TextDecoration.ITALIC, false),
                 Component.text("Clique com o botão direito para usar.", NamedTextColor.DARK_GRAY)
                         .decoration(TextDecoration.ITALIC, false)));
-        meta.setEnchantmentGlintOverride(true);
+        meta.setItemModel(new NamespacedKey(this, jewel.id()));
         meta.getPersistentDataContainer().set(jewelKey, PersistentDataType.STRING, jewel.id());
 
         item.setItemMeta(meta);
