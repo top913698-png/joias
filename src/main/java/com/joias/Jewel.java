@@ -1,36 +1,36 @@
 package com.joias;
 
-import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.potion.PotionEffectType;
 
 public enum Jewel {
-    RESISTENCIA("resistencia", "Joia da Resistência", NamedTextColor.GRAY,
+    RESISTENCIA("resistencia", "Joia da Resistência", TextColor.color(0x2F6BFF),
             PotionEffectType.RESISTANCE, 5, 2, true, "Concede o efeito de Resistência."),
-    FORCA("forca", "Joia da Força", NamedTextColor.DARK_RED,
+    FORCA("forca", "Joia da Força", TextColor.color(0xFF8A1F),
             PotionEffectType.STRENGTH, 5, 2, true, "Concede o efeito de Força."),
-    VELOCIDADE("velocidade", "Joia da Velocidade", NamedTextColor.AQUA,
+    VELOCIDADE("velocidade", "Joia da Velocidade", TextColor.color(0x2FE0E8),
             PotionEffectType.SPEED, 5, 2, true, "Concede o efeito de Velocidade."),
-    REGENERACAO("regeneracao", "Joia da Regeneração", NamedTextColor.LIGHT_PURPLE,
+    REGENERACAO("regeneracao", "Joia da Regeneração", TextColor.color(0xFF6FB5),
             PotionEffectType.REGENERATION, 5, 2, true, "Concede o efeito de Regeneração."),
-    VIDA("vida", "Joia da Vida", NamedTextColor.RED,
+    VIDA("vida", "Joia da Vida", TextColor.color(0xE02A2A),
             PotionEffectType.HEALTH_BOOST, 5, 3, true, "Concede o efeito de Vida Extra."),
-    PULO("pulo", "Joia do Pulo", NamedTextColor.GREEN,
+    PULO("pulo", "Joia do Pulo", TextColor.color(0x3FD04A),
             PotionEffectType.JUMP_BOOST, 5, 5, true, "Concede um super pulo."),
-    TITA("tita", "Joia do Titã", NamedTextColor.GOLD,
+    TITA("tita", "Joia do Titã", TextColor.color(0x8B5A2B),
             null, 20, 1, false, "Você fica gigante e com vida extra."),
-    LADRAO("ladrao", "Joia do Ladrão", NamedTextColor.DARK_GRAY,
+    LADRAO("ladrao", "Joia do Ladrão", TextColor.color(0x8C8C94),
             PotionEffectType.INVISIBILITY, 45, 1, false, "Você fica invisível, sem partículas.");
 
     private final String id;
     private final String displayName;
-    private final NamedTextColor color;
+    private final TextColor color;
     private final PotionEffectType effect;
     private final int defaultSeconds;
     private final int defaultLevel;
     private final boolean particles;
     private final String description;
 
-    Jewel(String id, String displayName, NamedTextColor color, PotionEffectType effect,
+    Jewel(String id, String displayName, TextColor color, PotionEffectType effect,
           int defaultSeconds, int defaultLevel, boolean particles, String description) {
         this.id = id;
         this.displayName = displayName;
@@ -44,7 +44,7 @@ public enum Jewel {
 
     public String id() { return id; }
     public String displayName() { return displayName; }
-    public NamedTextColor color() { return color; }
+    public TextColor color() { return color; }
     /** Null para a Joia do Titã (que usa atributos em vez de poção). */
     public PotionEffectType effect() { return effect; }
     public int defaultSeconds() { return defaultSeconds; }
