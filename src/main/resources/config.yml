@@ -11,14 +11,14 @@ joias:
     duracao: 5
     nivel: 3
   forca:
-    duracao: 5
-    nivel: 3
+    duracao: 8
+    nivel: 2
   velocidade:
     duracao: 15
     nivel: 4
   regeneracao:
     duracao: 5
-    nivel: 3
+    nivel: 5
   vida:
     duracao: 5
     nivel: 4
@@ -30,4 +30,4 @@ joias:
     escala: 4.0       # tamanho do jogador (1.0 = normal)
     vida-extra: 20.0  # vida extra em pontos (20 = 10 corações = 1 barra extra)
   ladrao:
-    duracao: 45
+    duracao: 30
