@@ -1,0 +1,29 @@
+# Se true, a joia some (1 unidade) a cada uso. Se false, é infinita.
+consumir-ao-usar: false
+
+# duracao = segundos | nivel = nível do efeito (1 = I, 2 = II, ...)
+joias:
+  resistencia:
+    duracao: 5
+    nivel: 2
+  forca:
+    duracao: 5
+    nivel: 2
+  velocidade:
+    duracao: 5
+    nivel: 2
+  regeneracao:
+    duracao: 5
+    nivel: 2
+  vida:
+    duracao: 5
+    nivel: 3
+  pulo:
+    duracao: 5
+    nivel: 5
+  tita:
+    duracao: 20
+    escala: 3.0       # tamanho do jogador (1.0 = normal)
+    vida-extra: 20.0  # vida extra em pontos (20 = 10 corações = 1 barra extra)
+  ladrao:
+    duracao: 45

@@ -1,0 +1,17 @@
+name: Joias
+version: 1.0.0
+main: com.joias.JoiasPlugin
+api-version: '26.3'
+description: Joias de fragmento de ametista que dão efeitos ao clicar com o botão direito.
+commands:
+  joia:
+    description: Gerencia as joias
+    usage: /joia <dar|lista>
+    aliases: [joias]
+permissions:
+  joias.admin:
+    description: Permite dar joias com /joia
+    default: op
+  joias.usar:
+    description: Permite usar as joias
+    default: true
