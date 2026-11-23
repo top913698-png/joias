@@ -20,6 +20,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -30,6 +31,8 @@ public final class JewelListener implements Listener {
     private final NamespacedKey scaleKey;
     private final NamespacedKey healthKey;
     private final Map<UUID, BukkitTask> titanTasks = new HashMap<>();
+    // Quando (em milissegundos) cada joia fica pronta de novo, por jogador.
+    private final Map<UUID, Map<Jewel, Long>> cooldowns = new HashMap<>();
 
     public JewelListener(JoiasPlugin plugin) {
         this.plugin = plugin;
@@ -54,8 +57,25 @@ public final class JewelListener implements Listener {
             return;
         }
 
+        long now = System.currentTimeMillis();
+        Map<Jewel, Long> playerCooldowns =
+                cooldowns.computeIfAbsent(player.getUniqueId(), k -> new EnumMap<>(Jewel.class));
+        Long readyAt = playerCooldowns.get(jewel);
+        if (readyAt != null && readyAt > now) {
+            long secondsLeft = (readyAt - now + 999) / 1000;
+            player.sendActionBar(Component.text(
+                    jewel.displayName() + " em recarga: " + formatTime(secondsLeft), NamedTextColor.RED));
+            return;
+        }
+
         boolean used = (jewel == Jewel.TITA) ? applyTitan(player) : applyPotion(player, jewel);
         if (!used) return;
+
+        int cooldownSeconds = plugin.getConfig().getInt("joias." + jewel.id() + ".cooldown",
+                plugin.getConfig().getInt("cooldown-segundos", 90));
+        if (cooldownSeconds > 0) {
+            playerCooldowns.put(jewel, now + cooldownSeconds * 1000L);
+        }
 
         player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_CHIME, 1.0f, 1.0f);
         player.sendActionBar(Component.text(jewel.displayName() + " ativada!", jewel.color()));
@@ -64,6 +84,15 @@ public final class JewelListener implements Listener {
             ItemStack inHand = player.getInventory().getItem(event.getHand());
             inHand.subtract();
         }
+    }
+
+    private static String formatTime(long seconds) {
+        if (seconds >= 60) {
+            long m = seconds / 60;
+            long r = seconds % 60;
+            return r == 0 ? m + "m" : m + "m" + r + "s";
+        }
+        return seconds + "s";
     }
 
     private boolean applyPotion(Player player, Jewel jewel) {
