@@ -11,8 +11,8 @@ joias:
     duracao: 5
     nivel: 3
   forca:
-    duracao: 8
-    nivel: 2
+    duracao: 2
+    nivel: 3
   velocidade:
     duracao: 15
     nivel: 4
