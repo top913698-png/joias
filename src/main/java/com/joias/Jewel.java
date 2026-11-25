@@ -19,7 +19,11 @@ public enum Jewel {
     TITA("tita", "Joia do Titã", TextColor.color(0x8B5A2B),
             null, 20, 1, false, "Você fica gigante e com vida extra."),
     LADRAO("ladrao", "Joia do Ladrão", TextColor.color(0x8C8C94),
-            PotionEffectType.INVISIBILITY, 45, 1, false, "Você fica invisível, sem partículas.");
+            PotionEffectType.INVISIBILITY, 45, 1, false, "Você fica invisível, sem partículas."),
+    LEVITACAO("levitacao", "Joia da Levitação", TextColor.color(0xA84CFF),
+            PotionEffectType.LEVITATION, 2, 35, true, "Você flutua para o alto por instantes."),
+    REVELACAO("revelacao", "Joia da Revelação", TextColor.color(0xFFE01A),
+            null, 60, 1, false, "Revela quem está por perto com brilho.");
 
     private final String id;
     private final String displayName;
