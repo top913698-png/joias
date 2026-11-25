@@ -9,25 +9,33 @@ cooldown-segundos: 90
 joias:
   resistencia:
     duracao: 5
-    nivel: 3
+    nivel: 2
   forca:
-    duracao: 2
-    nivel: 3
+    duracao: 5
+    nivel: 2
   velocidade:
-    duracao: 15
-    nivel: 4
+    duracao: 5
+    nivel: 2
   regeneracao:
     duracao: 5
-    nivel: 5
+    nivel: 2
   vida:
     duracao: 5
-    nivel: 4
+    nivel: 3
   pulo:
     duracao: 5
     nivel: 5
   tita:
-    duracao: 40
-    escala: 4.0       # tamanho do jogador (1.0 = normal)
+    duracao: 20
+    escala: 3.0       # tamanho do jogador (1.0 = normal)
     vida-extra: 20.0  # vida extra em pontos (20 = 10 corações = 1 barra extra)
+    velocidade-nivel: 3  # nível de Velocidade enquanto ativo (0 = sem velocidade)
   ladrao:
-    duracao: 30
+    duracao: 45
+  levitacao:
+    duracao: 2
+    nivel: 35
+  revelacao:
+    duracao: 60
+    raio: 100.0
+    incluir-mobs: false  # true = também revela mobs, não só jogadores
