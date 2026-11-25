@@ -3,11 +3,14 @@ package com.joias;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,6 +21,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.EnumMap;
@@ -68,7 +72,14 @@ public final class JewelListener implements Listener {
             return;
         }
 
-        boolean used = (jewel == Jewel.TITA) ? applyTitan(player) : applyPotion(player, jewel);
+        boolean used;
+        if (jewel == Jewel.TITA) {
+            used = applyTitan(player);
+        } else if (jewel == Jewel.REVELACAO) {
+            used = applyReveal(player);
+        } else {
+            used = applyPotion(player, jewel);
+        }
         if (!used) return;
 
         int cooldownSeconds = plugin.getConfig().getInt("joias." + jewel.id() + ".cooldown",
@@ -107,6 +118,33 @@ public final class JewelListener implements Listener {
         return true;
     }
 
+    private boolean applyReveal(Player player) {
+        String path = "joias.revelacao";
+        int seconds = plugin.getConfig().getInt(path + ".duracao", 60);
+        double radius = plugin.getConfig().getDouble(path + ".raio", 100.0);
+        boolean includeMobs = plugin.getConfig().getBoolean(path + ".incluir-mobs", false);
+        double radiusSquared = radius * radius;
+
+        int revealed = 0;
+        for (Entity entity : player.getWorld().getNearbyEntities(player.getLocation(), radius, radius, radius)) {
+            if (entity.equals(player) || !(entity instanceof LivingEntity target)) continue;
+            if (!includeMobs && !(entity instanceof Player)) continue;
+            if (entity instanceof Player other && other.getGameMode() == GameMode.SPECTATOR) continue;
+            if (entity.getLocation().distanceSquared(player.getLocation()) > radiusSquared) continue;
+
+            // Brilho sem partículas e sem ícone; aparece mesmo em quem está invisível.
+            target.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, seconds * 20, 0,
+                    false, false, false));
+            revealed++;
+        }
+
+        if (revealed == 0) {
+            player.sendActionBar(Component.text("Ninguém por perto para revelar.", NamedTextColor.RED));
+            return false;
+        }
+        return true;
+    }
+
     private boolean applyTitan(Player player) {
         UUID uuid = player.getUniqueId();
         if (titanTasks.containsKey(uuid)) {
@@ -131,6 +169,13 @@ public final class JewelListener implements Listener {
 
         // Enche os corações novos.
         player.setHealth(Math.min(healthAttr.getValue(), player.getHealth() + extraHealth));
+
+        // Velocidade extra enquanto o Titã está ativo (0 desliga).
+        int speedLevel = plugin.getConfig().getInt("joias.tita.velocidade-nivel", 3);
+        if (speedLevel > 0) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, seconds * 20,
+                    speedLevel - 1, false, false, true));
+        }
 
         BukkitTask task = Bukkit.getScheduler().runTaskLater(plugin, () -> endTitan(uuid), seconds * 20L);
         titanTasks.put(uuid, task);
